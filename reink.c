@@ -1525,13 +1525,14 @@ int read_eeprom_address(struct ieee1284_socket *d4_sock,
 int write_eeprom_address(struct ieee1284_socket *d4_sock,
 			 unsigned short int addr, unsigned char data)
 {
-	char cmd[12]; // full command with address
+	char cmd[100]; // full command with address
 	int cmd_len = 11; // full length of the command
 	int cmd_args_len = 2; // command arguments count
 
 	char reply[INPUT_BUF_LEN]; // buffer for printer reply
 	int actual; // actual reply length
 	char reply_data[6]; // buffer for "OK" tag
+	const char *pass = d4_sock->parent->info->eeprom_wr_key;
 
 	reink_dbg("=== write_eeprom_address ===\n");
 
@@ -1540,8 +1541,9 @@ int write_eeprom_address(struct ieee1284_socket *d4_sock,
 	{
 		cmd[10] = (addr >> 8) & 0xFF;
 		cmd[11] = (char)data;
-		cmd_len = 12;
-		cmd_args_len = 3;
+		cmd_len = 12 + strlen(pass);
+		cmd_args_len = 3 + strlen(pass);
+		strcpy(cmd + 12, pass);
 	}
 	else
 	{

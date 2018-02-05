@@ -47,6 +47,7 @@ typedef struct _waste_map {
 //the printer
 #define MAX_NAME_LEN	100
 #define MAX_MODEL_LEN	100
+#define MAX_EE_KEY_LEN	100
 typedef struct printer_info {
 	ink_map_t inkmap;
 	waste_map_t wastemap;
@@ -54,6 +55,8 @@ typedef struct printer_info {
 	unsigned char name[MAX_NAME_LEN];
 	/* Printer model name as returned by printer. */
 	unsigned char model_name[MAX_MODEL_LEN];
+	/* Key for writing to the eeprom. How this is derived is a mystery.*/
+	char eeprom_wr_key[MAX_EE_KEY_LEN];
 	/* "password" for this printer */
 	uint8_t model_code[2];
 	/* Does the printer use two-byte EEPROM addresses? */
