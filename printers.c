@@ -154,11 +154,13 @@ static const struct printer_info printers[] = {
 		.model_name = "WF-2760 Series",
 		.model_code = {0x37, 0x06},
 		.twobyte_addresses = 1,
+		.eeprom_wr_key = "Hzqtpqij",
 		.inkmap = {
 			.mask = 0,
 		},
 		.wastemap = {
-			.len = 0,
+			.len = 		4,
+			.addr = 	{0x30, 0x31, 0x32, 0x33},
 		},
 	},
 };
